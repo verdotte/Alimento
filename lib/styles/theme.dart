@@ -9,20 +9,13 @@ ThemeData _buildAlimentoTheme() {
     accentColor: alBackgroundWhite,
     primaryColor: alMain,
     buttonTheme: base.buttonTheme.copyWith(
-        buttonColor: alBackgroundWhite,
         textTheme: ButtonTextTheme.primary,
-        padding: EdgeInsets.only(
-            left: 125.0,
-            right: 125.0,
-            top: 12.0,
-            bottom: 12.0
-        ),
         shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0)
+            borderRadius: BorderRadius.circular(20.0)
         )
     ),
     scaffoldBackgroundColor: alBackgroundWhite,
-    textSelectionColor: alSelection,
+    textSelectionColor: alDark,
     errorColor: alError,
 
     textTheme: _buildAlimentoTextTheme(base.textTheme),
@@ -36,18 +29,30 @@ TextTheme _buildAlimentoTextTheme(TextTheme base) {
     headline: base.headline.copyWith(
         fontWeight: FontWeight.w900,
         fontFamily: 'Poppin',
-        fontSize: 20.0
+        fontSize: 20.0,
+        color: alDark,
     ),
     title: base.title.copyWith(
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
+        color: alBackgroundWhite,
+        fontFamily: 'Poppin'
+    ),
+    caption: base.caption.copyWith(
+      fontSize: 17.0,
+      fontFamily: 'Poppin',
+      color: alDark,
+    ),
+    overline: base.caption.copyWith(
+      fontSize: 15.0,
+      fontFamily: 'Raleway',
+      color: alMain,
+    ),
+    button: base.title.copyWith(
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
         color: alBackgroundWhite,
         fontFamily: 'Raleway'
     ),
-    caption: base.caption.copyWith(
-      fontSize: 17.0,
-      fontFamily: 'Poppin',
-    ),
-
   );
 }
