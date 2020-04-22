@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:alimento/routes/router.dart';
 import 'package:alimento/styles/theme.dart';
+import 'package:alimento/screens/restaurantFood.dart';
+import 'package:alimento/screens/home.dart';
 
 class App extends StatefulWidget {
   @override
@@ -12,8 +14,8 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
-      onGenerateRoute: Router.generateRoute,
       theme: alimentoTheme,
+      routes: customRoutes
     );
   }
 }
