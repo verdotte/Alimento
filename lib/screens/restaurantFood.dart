@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:alimento/styles/color.dart';
 import 'package:alimento/components/mainComponent.dart';
 import 'package:alimento/components/helpers.dart';
-import 'package:alimento/styles/color.dart';
+import 'package:alimento/models/restaurant.dart';
+import 'package:alimento/models/food.dart';
 
-class RestaurantFood extends StatelessWidget {
+class RestaurantFood extends StatefulWidget {
+  @override
+  _RestaurantFoodState createState() => _RestaurantFoodState();
+}
+
+class _RestaurantFoodState extends State<RestaurantFood> {
+
   @override
   Widget build(BuildContext context) {
     final Map args = ModalRoute.of(context).settings.arguments;
+    var food = Provider.of<List<Food>>(context);
     return Scaffold(
       backgroundColor: alBackgroundGrey,
       body: NestedScrollView(
@@ -18,13 +28,13 @@ class RestaurantFood extends StatelessWidget {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: false,
-                title: Text('${args['title']}', style: Theme.of(context).textTheme.title),
-                background: imageOpaque("https://food.jumia.com.ng/blog/wp-content/uploads/2016/05/Pizza-capricciosa.jpg"),
+                title: Text('${args['name']}', style: Theme.of(context).textTheme.title),
+                background: imageOpaque('${args['image']}'),
               ),
             ),
           ];
         },
-        body: new VerticalList(),
+        body: vListView(food)
       ),
     );
   }

@@ -1,8 +1,12 @@
-import 'package:alimento/components/mainComponent.dart' as prefix0;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:alimento/styles/color.dart';
 import 'package:alimento/components/mainComponent.dart';
 import 'package:alimento/components/helpers.dart';
+import 'package:alimento/models/restaurant.dart';
+import 'package:alimento/models/food.dart';
+import 'package:alimento/services/restaurantService.dart';
+import 'package:alimento/services/foodService.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,11 +14,39 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  ScrollController _scrollController;
   int counter = 12;
+  bool show = false;
+
+  _scrollListener() {
+    var isEnd = _scrollController.offset == _scrollController.position.maxScrollExtent;
+    if (isEnd){
+      setState(() {
+        show = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _scrollController = new ScrollController();
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var restaurant = Provider.of<List<Restaurant>>(context);
+    var restaurantState = Provider.of<RestaurantService>(context);
+    var food = Provider.of<List<Food>>(context);
+    var foodState = Provider.of<FoodService>(context);
     return Scaffold(
       backgroundColor: alBackgroundGrey,
         appBar: AppBar(
@@ -26,24 +58,27 @@ class _HomeState extends State<Home> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search, color: alDark),
-              onPressed: () {},
+              onPressed: () {
+              },
             ),
             cartButton(),
             orderButton()
           ],
         ),
         body: SingleChildScrollView(
+          controller: _scrollController,
           physics: ScrollPhysics(),
-          child: Column(
+          child: (restaurant != null && food != null ) ?
+          Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               mainLabel(context, 'RESTAURANTS'),
-              new HorizontalList(),
+              hListView(restaurant),
               mainLabel(context, 'FOODS'),
-              new VerticalList(),
+              vListView(food),
             ],
-          ),
+          ): Center(child: loader())
         )
     );
   }
