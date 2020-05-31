@@ -20,10 +20,10 @@ class _FoodDetailState extends State<FoodDetail> {
         .of(context)
         .settings
         .arguments;
-    name = args['title'];
+    name = args['restaurantName'];
     return Scaffold(
       appBar: AppBar(
-        title: Text('$name', style: Theme
+        title: Text('${args['name']}', style: Theme
             .of(context)
             .textTheme
             .title),
@@ -35,7 +35,7 @@ class _FoodDetailState extends State<FoodDetail> {
               children: <Widget>[
                 new Container(
                   height: MediaQuery.of(context).size.height * .40,
-                  child: imageContainer("https://www.thespruceeats.com/thmb/RUHqSPTY7h_2A3KGunxonCBvKrk=/1500x1000/filters:fill(auto,1)/juicy-baked-burgers-3052097-7-5b1054308e1b6e0036bc6cd1.jpg"),
+                  child: imageContainer('${args['image']}'),
                 ),
                 new Container(
                   height: MediaQuery.of(context).size.height * .60,
@@ -67,11 +67,11 @@ class _FoodDetailState extends State<FoodDetail> {
                         SizedBox(height: 20.0),
                         Row(
                           children: <Widget>[
-                            Text('Pizza', style: Theme.of(context).textTheme.caption),
+                            Text('${args['name']}', style: Theme.of(context).textTheme.caption),
                             Spacer(),
                             Icon(Icons.alarm),
                             SizedBox(width: 5.0),
-                            Text('20-30 Min', style: Theme.of(context).textTheme.caption),
+                            Text('${args['cookTime']}', style: Theme.of(context).textTheme.caption),
                             SizedBox(height: 30.0),
                           ],
                         ),
